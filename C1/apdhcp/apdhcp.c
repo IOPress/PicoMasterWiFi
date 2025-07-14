@@ -30,7 +30,6 @@ int main()
     
     dhcp_server_t dhcp_server;
     dhcp_server_init(&dhcp_server, &(netif_default->ip_addr),&(netif_default->netmask));
-
     for (;;)
     {
     }
