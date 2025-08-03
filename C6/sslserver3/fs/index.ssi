@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>Test Page</title>
+  </head>
+  <body>
+   <p>
+Hello Pico W Server World <br/>
+The Temperature is: <!--#temp--><br/>
+The Humidity is: <!--#hum--><br/>
+   </p>
+  </body>
+</html>

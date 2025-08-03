@@ -86,14 +86,21 @@
 #define SLIP_DEBUG                  LWIP_DBG_OFF
 #define DHCP_DEBUG                  LWIP_DBG_OFF
 
+
 #undef TCP_WND
 #define TCP_WND  16384
-
-
-
-#define LWIP_DEBUG 1
+// setting debug on makes the compile fail
+//#define LWIP_DEBUG 1
 #define TCP_LISTEN_BACKLOG       1 
-
 #define HTTPD_FSDATA_FILE "myfs.c"
+#undef MEM_SIZE
+#define MEM_SIZE                    8000
+#define LWIP_ALTCP               1
+#define LWIP_ALTCP_TLS           1
+#define LWIP_ALTCP_TLS_MBEDTLS   1
+#define ALTCP_MBEDTLS_DEBUG  LWIP_DBG_ON
+#define TCP_LISTEN_BACKLOG  1
+
+#define HTTPD_ENABLE_HTTPS   1
 
 #endif /* __LWIPOPTS_H__ */

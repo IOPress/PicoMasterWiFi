@@ -89,11 +89,14 @@
 #undef TCP_WND
 #define TCP_WND  16384
 
+#define SNTP_SERVER_DNS              1
+#define SNTP_SUPPORT                 1
+#define SNTP_UPDATE_DELAY       60*1000
 
+#define SNTP_SET_SYSTEM_TIME_NTP(sec, us) \
+ void SNTPSetClock(u32_t, u32_t); \
+  SNTPSetClock(sec, us)
 
 #define LWIP_DEBUG 1
-#define TCP_LISTEN_BACKLOG       1 
-
-#define HTTPD_FSDATA_FILE "myfs.c"
 
 #endif /* __LWIPOPTS_H__ */

@@ -86,14 +86,7 @@
 #define SLIP_DEBUG                  LWIP_DBG_OFF
 #define DHCP_DEBUG                  LWIP_DBG_OFF
 
-#undef TCP_WND
-#define TCP_WND  16384
-
-
-
 #define LWIP_DEBUG 1
-#define TCP_LISTEN_BACKLOG       1 
-
-#define HTTPD_FSDATA_FILE "myfs.c"
+#define SMTP_DEBUG LWIP_DBG_ON
 
 #endif /* __LWIPOPTS_H__ */

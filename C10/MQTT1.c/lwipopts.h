@@ -86,14 +86,9 @@
 #define SLIP_DEBUG                  LWIP_DBG_OFF
 #define DHCP_DEBUG                  LWIP_DBG_OFF
 
-#undef TCP_WND
-#define TCP_WND  16384
-
-
-
-#define LWIP_DEBUG 1
-#define TCP_LISTEN_BACKLOG       1 
-
-#define HTTPD_FSDATA_FILE "myfs.c"
+//#define LWIP_DEBUG 1
+//#define MQTT_DEBUG LWIP_DBG_ON
+#define MEMP_NUM_SYS_TIMEOUT (LWIP_NUM_SYS_TIMEOUT_INTERNAL + 1)
+#define MQTT_REQ_MAX_IN_FLIGHT (5)
 
 #endif /* __LWIPOPTS_H__ */
