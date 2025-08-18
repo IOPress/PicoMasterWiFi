@@ -150,7 +150,7 @@ void mainTask(void *arg)
     {
         printf("failed to initialise\n");
     }
-    connect2();   
+    connectWiFi();   
 
     char buffer1[2000];
     char url[] = "example.com";

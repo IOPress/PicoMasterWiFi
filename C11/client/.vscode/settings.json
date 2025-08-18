@@ -39,6 +39,7 @@
     "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
     "files.associations": {
         "lwip_freertos.h": "c",
-        "tcp.h": "c"
+        "tcp.h": "c",
+        "setupwifi.h": "c"
     }
 }

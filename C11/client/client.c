@@ -43,7 +43,7 @@ void mainTask(void *arg)
     {
         printf("failed to initialise\n");
     }
-    connect();
+    connectWiFi();
 
     struct tcp_pcb *pcb = tcp_new();
     tcp_recv(pcb, recv);

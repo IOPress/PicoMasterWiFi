@@ -15,7 +15,7 @@ void mainTask(void *arg)
     {
         printf("failed to initialise\n");
     }
-    connect2();
+    connectWiFi();
 
     int sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
     
