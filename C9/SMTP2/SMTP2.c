@@ -22,7 +22,7 @@ int main()
      printf("failed to initialise\n");
      return 1;
     }
-    connect();
+    connectWiFi();
     struct altcp_tls_config *tls_config =
                           altcp_tls_create_config_client(NULL, 0);
     smtp_set_tls_config(tls_config);

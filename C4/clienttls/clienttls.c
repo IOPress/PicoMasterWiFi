@@ -43,7 +43,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
 
     struct altcp_tls_config *tls_config = altcp_tls_create_config_client(NULL, 0);
     struct altcp_pcb *pcb = altcp_tls_new(tls_config, IPADDR_TYPE_ANY);

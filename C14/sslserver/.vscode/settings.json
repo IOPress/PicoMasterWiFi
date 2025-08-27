@@ -42,6 +42,12 @@
         "task.h": "c",
         "ssl.h": "c",
         "entropy.h": "c",
-        "debug.h": "c"
+        "debug.h": "c",
+        "sockets.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "span": "c",
+        "fstream": "c"
     }
 }

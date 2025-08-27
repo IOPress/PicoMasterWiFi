@@ -22,8 +22,6 @@ void mainTask(void *arg)
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(80);
-    addr.sin_addr.s_addr = 0x22d8885d;
-    addr.sin_addr.s_addr = inet_addr("192.168.253.75");
     addr.sin_addr.s_addr = inet_addr("23.192.228.80");
 
     connect(sockfd, (struct sockaddr *)&addr, sizeof(addr));

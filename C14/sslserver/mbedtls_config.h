@@ -81,5 +81,10 @@
 
 #define MBEDTLS_DEBUG_C
 
+#define MBEDTLS_SSL_SRV_C
+
+#define MBEDTLS_CERTS_C
+
+
 // checks that everything needed is included
 #include "/home/mike/.pico-sdk/sdk/2.1.1/lib/mbedtls/include/mbedtls/check_config.h"

@@ -88,6 +88,9 @@
 #define SLIP_DEBUG                  LWIP_DBG_OFF
 #define DHCP_DEBUG                  LWIP_DBG_OFF
 
+#undef TCP_WND
+#define TCP_WND  16384
+
 #define LWIP_TIMEVAL_PRIVATE            0  
 #define LWIP_SOCKET 1
 
@@ -103,5 +106,6 @@
 #define LWIP_DEBUG 1
 
 #define DEFAULT_ACCEPTMBOX_SIZE         8
+
 
 #endif /* __LWIPOPTS_H__ */

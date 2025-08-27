@@ -66,7 +66,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
 
     int state = 0;
     struct altcp_pcb *pcb = altcp_new(NULL);

@@ -55,6 +55,7 @@ target_link_libraries(sslserver
     pico_multicore
     FreeRTOS-Kernel-Heap4
     pico_mbedtls
+    pico_aon_timer
     )
 
 # Add the standard include files to the build

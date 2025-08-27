@@ -24,7 +24,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
 
     sntp_setoperatingmode(SNTP_OPMODE_POLL);
     sntp_setservername(0, "pool.ntp.org");

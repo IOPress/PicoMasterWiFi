@@ -63,7 +63,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
 
     struct tcp_pcb *pcb = tcp_new();
     tcp_recv(pcb, recv);

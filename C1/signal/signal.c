@@ -6,7 +6,12 @@
 int main()
 {
     stdio_init_all();
-    connect();
+    if (cyw43_arch_init())
+    {
+        printf("failed to initialise\n");
+        return 1;
+    }
+    connectWiFi();
     int32_t rssi;
     while (true)
     {

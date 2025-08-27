@@ -65,7 +65,6 @@ void asyncgetPage(void *arg)
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(80);
-   // addr.sin_addr.s_addr = inet_addr("23.192.228.80");
     addr.sin_addr.s_addr = ipResult.addr;
 
     err = connect(sockfd, (struct sockaddr *)&addr, sizeof(addr));
@@ -77,7 +76,7 @@ void asyncgetPage(void *arg)
         vTaskDelete(NULL);
     }
     else
-        printf("conntect \n");
+        printf("contect \n");
 
     char header[] = "GET /index.html HTTP/1.1\r\nHost: example.com\r\n\r\n ";
 

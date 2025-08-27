@@ -18,7 +18,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
 
     smtp_set_server_addr("serverurl");
     smtp_set_server_port(25);

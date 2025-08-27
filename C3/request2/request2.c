@@ -17,7 +17,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
     ip_addr_t ip;
     IP4_ADDR(&ip, 104, 100, 168, 80);
     struct connectionState *cs1 = doRequest(&ip, "example.com", 80,

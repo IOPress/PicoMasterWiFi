@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
@@ -7,7 +6,6 @@
 #include <task.h>
 #include "pico/lwip_freertos.h"
 #include "lwip/tcp.h"
-
 
 #define BUF_SIZE 2048
 char myBuff[BUF_SIZE];

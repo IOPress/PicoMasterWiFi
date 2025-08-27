@@ -119,7 +119,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
 
     struct connectionState cs;
     newConnection(&cs, myBuff);

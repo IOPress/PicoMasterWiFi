@@ -19,7 +19,7 @@ void task1(void *arg)
     }
 }
 
-void mainapp(void *arg)
+void mainTask(void *arg)
 {
     UBaseType_t uxCoreAffinityMask;
     gpio_init(2);
@@ -43,7 +43,7 @@ void mainapp(void *arg)
 int main()
 {
     stdio_init_all();
-    TaskHandle_t mainApp;
-    xTaskCreate(mainapp, "mainapp", 2048, NULL, 0, &mainApp);
+    TaskHandle_t MainTask;
+    xTaskCreate(mainTask, "mainTask", 2048, NULL, 0, &MainTask);
     vTaskStartScheduler();
 }

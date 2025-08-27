@@ -47,8 +47,6 @@ void mainTask(void *arg)
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(443);
-    addr.sin_addr.s_addr = 0x22d8885d;
-    addr.sin_addr.s_addr = inet_addr("192.168.253.75");
     addr.sin_addr.s_addr = inet_addr("23.192.228.80");
  
     err = connect(sockfd, (struct sockaddr *)&addr, sizeof(addr));
@@ -74,7 +72,7 @@ void mainTask(void *arg)
 
     mbedtls_ssl_conf_authmode(&conf, MBEDTLS_SSL_VERIFY_NONE);
 
-    mbedtls_debug_set_threshold(3);
+    mbedtls_debug_set_threshold(2);
     mbedtls_ssl_conf_dbg( &conf, my_debug, stdout );
 
     mbedtls_ssl_context ssl;
@@ -82,9 +80,6 @@ void mainTask(void *arg)
     err = mbedtls_ssl_setup(&ssl, &conf);
 
     mbedtls_ssl_set_bio(&ssl, &sockfd, mbedtls_net_send, mbedtls_net_recv, NULL);
-
-    // err = mbedtls_ssl_handshake(&ssl);
-    //    printf("handshake %X\n", err);
 
     char header[] = "GET /index.html HTTP/1.1\r\nHost: example.com\r\n\r\n ";
    

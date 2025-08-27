@@ -30,7 +30,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
 
     struct udp_pcb *pcb = udp_new();
     udp_recv(pcb, recv, NULL);

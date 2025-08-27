@@ -9,7 +9,6 @@
 #include "time.h"
 #include "lwip/dns.h"
 
-aon_timer_start_with_timeofday ();
 struct timeStatus
 {
     bool ready;
@@ -101,7 +100,7 @@ int main()
      printf("failed to initialise\n");
      return 1;
     }
-    connect();
+    connectWiFi();
 
     while (true)
     {

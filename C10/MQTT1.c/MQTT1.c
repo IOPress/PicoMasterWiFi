@@ -50,7 +50,7 @@ int main()
         printf("failed to initialise\n");
         return 1;
     }
-    connect();
+    connectWiFi();
     
     mqtt_client_t *client = mqtt_client_new();
     struct mqtt_connect_client_info_t ci;
