@@ -30,14 +30,17 @@ void mainTask(void *arg)
     int n = write(sockfd, header, strlen(header));
     printf("data sent \n");
     char buffer[2048];
- 
+    int m=0;
     do
     {
-        n = read(sockfd, buffer, 2048);
-        buffer[n] = 0;
-        printf("\ndata recieved %d\n\n", n);
-        printf("%s\n", buffer);
-    } while (n > 0);
+        int n = read(sockfd, buffer+m, 2048);
+        if(n<=0)break;
+        buffer[n+m] = 0;
+        printf("\ndata received %d\n\n", n);
+        printf("%s\n\n", buffer+m);
+        m=m+n;
+    } while(true);
+    printf("Final buffer\n\n%s\n", buffer);
     while (true)
     {
     };
