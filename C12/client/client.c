@@ -33,7 +33,7 @@ void mainTask(void *arg)
     int m=0;
     do
     {
-        int n = read(sockfd, buffer+m, 2048);
+        int n = read(sockfd, buffer+m, 2048-m);
         if(n<=0)break;
         buffer[n+m] = 0;
         printf("\ndata received %d\n\n", n);
