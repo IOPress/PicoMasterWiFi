@@ -14,6 +14,7 @@
 typedef struct
 {
     char *url;
+    char *path;
     char *buffer;
     int len;
     bool done;
@@ -93,13 +94,15 @@ void asyncgetPage(void *arg)
 
     fd_set rfds;
     struct timeval tv;
+    int m = 0;
+    n = 0;
     do
     {
         FD_ZERO(&rfds);
         FD_SET(sockfd, &rfds);
         tv.tv_sec = 2;
         tv.tv_usec = 0;
-        n = select(5, &rfds, NULL, NULL, &tv);
+        n = select(sockfd + 1, &rfds, NULL, NULL, &tv);
         if (n < 0)
         {
             printf("read error %X\n", errno);
@@ -110,14 +113,31 @@ void asyncgetPage(void *arg)
             printf("read timeout\n");
             break;
         }
-        n = read(sockfd, page->buffer, page->len);
+        n = read(sockfd, page->buffer + m, page->len - m);
+        if (n > 0)
+        {
+            page->buffer[n + m] = 0;
+            printf("\ndata received %d\n\n", n);
+            printf("%s\n", page->buffer + m);
+            m = m + n;
+             if (m >= page->len)
+            {
+                printf("buffer full\n");
+                break;
+            }
+        }
+        if (n == 0)
+        {
+            printf("no data\n");
+            break;
+        }
+
         if (n < 0)
         {
             printf("read error %X\n", errno);
             break;
         }
-        page->buffer[n] = 0;
-        printf("\ndata recieved on socket %d  %d\n\n", sockfd, n);
+
     } while (true);
 
     printf("close socket %d\n", sockfd);
@@ -133,10 +153,11 @@ void getPage(Page *page)
     return;
 }
 
-Page initPage(char url[], char buffer[], int len)
+Page initPage(char url[], char path[], char buffer[], int len)
 {
     Page page;
     page.url = url;
+    page.path = path;
     page.buffer = buffer;
     page.len = len;
     page.done = false;
@@ -145,6 +166,7 @@ Page initPage(char url[], char buffer[], int len)
 
 void mainTask(void *arg)
 {
+
     if (cyw43_arch_init())
     {
         printf("failed to initialise\n");
@@ -153,34 +175,38 @@ void mainTask(void *arg)
 
     char buffer1[2000];
     char url[] = "example.com";
-    Page pagetemp1 = initPage(url, buffer1, 2000);
+    char path[] = "/index.html";
+    Page pagetemp1 = initPage(url, path, buffer1, 2000);
     getPage(&pagetemp1);
 
-    char buffer2[2000];
-    Page pagetemp2 = initPage(url, buffer2, 2000);
+    char buffer2[8000];
+    Page pagetemp2 = initPage("httpforever.com", "/",
+                                buffer2, 10000);
     getPage(&pagetemp2);
     while (true)
     {
         if (pagetemp1.done)
         {
-            printf("\nfirst request \n %s\n", buffer1);
+            printf("\n******first request \n %s\n", buffer1);
             pagetemp1.done = false;
         }
+
         if (pagetemp2.done)
         {
-            printf("\nsecond request \n %s\n", buffer2);
+            printf("\n******second request \n %s\n", buffer2);
             pagetemp2.done = false;
         }
         vTaskDelay(2000);
     };
 }
 
+
 int main()
 {
     TaskHandle_t maintask;
     stdio_init_all();
     sleep_ms(10);
-    xTaskCreate(mainTask, "maintask", 2048, NULL, 1, &maintask);
+    xTaskCreate(mainTask, "maintask", 2048*4, NULL, 1, &maintask);
     vTaskStartScheduler();
     return 0;
 }
