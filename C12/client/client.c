@@ -29,17 +29,19 @@ void mainTask(void *arg)
     char header[] = "GET /index.html HTTP/1.1\r\nHost: example.com\r\n\r\n ";
     int n = write(sockfd, header, strlen(header));
     printf("data sent \n");
-    char buffer[2048];
-    int m=0;
+    int len = 1024 * 2;
+    char buffer[len];
+    int m = 0;
     do
     {
-        int n = read(sockfd, buffer+m, 2048-m);
-        if(n<=0)break;
-        buffer[n+m] = 0;
+        int n = read(sockfd, buffer + m, len - m -1);
+        if (n < 0)
+            break;
+        m = m + n;  
+        buffer[m] = 0;
         printf("\ndata received %d\n\n", n);
-        printf("%s\n\n", buffer+m);
-        m=m+n;
-    } while(true);
+        //   printf("%s\n", buffer);
+    } while (true);
     printf("Final buffer\n\n%s\n", buffer);
     while (true)
     {
