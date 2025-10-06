@@ -50,6 +50,44 @@ ip_addr_t DNS(char URL[])
     return ipResult;
 }
 
+void socketReadTimeout(int sockfd, char buffer[], int len, int timeoutsec)
+{
+    int m = 0;
+    fd_set rfds;
+    struct timeval tv;
+    do
+    {
+        FD_ZERO(&rfds);
+        FD_SET(sockfd, &rfds);
+        tv.tv_sec = timeoutsec;
+        tv.tv_usec = 0;
+        int s = select(sockfd + 1, &rfds, NULL, NULL, &tv);
+        if (s < 0)
+        {
+            printf("read error %X\n", errno);
+            break;
+        }
+        if (s == 0)
+        {
+            printf("read timeout\n");
+            break;
+        }
+        int n = read(sockfd, buffer + m, len - m - 1);
+        if (n >= 0)
+        {
+            m = m + n;
+            buffer[m] = 0;
+            printf("\ndata received %d\n\n", n);
+        }
+        if (n < 0)
+        {
+            printf("read error %X\n", errno);
+            break;
+        }
+
+    } while (true);
+}
+
 void asyncgetPage(void *arg)
 {
     err_t err;
@@ -77,10 +115,11 @@ void asyncgetPage(void *arg)
         vTaskDelete(NULL);
     }
     else
-        printf("contect \n");
+        printf("connect \n");
 
-    char header[] = "GET /index.html HTTP/1.1\r\nHost: example.com\r\n\r\n ";
-
+    char header[100];
+    sprintf(header, "GET %s HTTP/1.1\r\nHost:%s\r\n\r\n ",
+            page->path, page->url);
     int n = write(sockfd, header, strlen(header));
     if (n < 0)
     {
@@ -92,54 +131,7 @@ void asyncgetPage(void *arg)
     else
         printf("data sent socket %d %d\n", sockfd, n);
 
-    fd_set rfds;
-    struct timeval tv;
-    int m = 0;
-    n = 0;
-    do
-    {
-        FD_ZERO(&rfds);
-        FD_SET(sockfd, &rfds);
-        tv.tv_sec = 2;
-        tv.tv_usec = 0;
-        n = select(sockfd + 1, &rfds, NULL, NULL, &tv);
-        if (n < 0)
-        {
-            printf("read error %X\n", errno);
-            break;
-        }
-        if (n == 0)
-        {
-            printf("read timeout\n");
-            break;
-        }
-        n = read(sockfd, page->buffer + m, page->len - m);
-        if (n > 0)
-        {
-            page->buffer[n + m] = 0;
-            printf("\ndata received %d\n\n", n);
-            printf("%s\n", page->buffer + m);
-            m = m + n;
-             if (m >= page->len)
-            {
-                printf("buffer full\n");
-                break;
-            }
-        }
-        if (n == 0)
-        {
-            printf("no data\n");
-            break;
-        }
-
-        if (n < 0)
-        {
-            printf("read error %X\n", errno);
-            break;
-        }
-
-    } while (true);
-
+    socketReadTimeout(sockfd, page->buffer, page->len, 2);
     printf("close socket %d\n", sockfd);
     close(sockfd);
     page->done = true;
@@ -171,7 +163,7 @@ void mainTask(void *arg)
     {
         printf("failed to initialise\n");
     }
-    connectWiFi();   
+    connectWiFi();
 
     char buffer1[2000];
     char url[] = "example.com";
@@ -179,9 +171,9 @@ void mainTask(void *arg)
     Page pagetemp1 = initPage(url, path, buffer1, 2000);
     getPage(&pagetemp1);
 
-    char buffer2[8000];
-    Page pagetemp2 = initPage("httpforever.com", "/",
-                                buffer2, 10000);
+    char buffer2[2000];
+    Page pagetemp2 = initPage("example.com", "/",
+                              buffer2, 10000);
     getPage(&pagetemp2);
     while (true)
     {
@@ -200,13 +192,12 @@ void mainTask(void *arg)
     };
 }
 
-
 int main()
 {
     TaskHandle_t maintask;
     stdio_init_all();
     sleep_ms(10);
-    xTaskCreate(mainTask, "maintask", 2048*4, NULL, 1, &maintask);
+    xTaskCreate(mainTask, "maintask", 2048 * 4, NULL, 1, &maintask);
     vTaskStartScheduler();
     return 0;
 }
