@@ -40,6 +40,11 @@ void socketReadTimeout(int sockfd, char buffer[], int len, int timeoutsec)
         }
         if (n < 0)
         {
+            if (errno == ENOTCONN)
+            {
+                printf("socket closed by server\n");
+                break;
+            }
             printf("read error %X\n", errno);
             break;
         }
