@@ -48,7 +48,7 @@ void socketReadTimeout(int sockfd, char buffer[], int len, int timeoutsec)
             printf("read error %X\n", errno);
             break;
         }
-
+        vTaskDelay(2);
     } while (true);
 }
 
