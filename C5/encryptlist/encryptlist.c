@@ -17,8 +17,7 @@ int main()
     while (*list)
     {
         cipher_info1 = mbedtls_cipher_info_from_type(*list);
-        printf("  %s\n", cipher_info1->name);
-        list++;
+        printf("  %s\n",  mbedtls_cipher_info_get_name( cipher_info1 )); 
     }    
     return 0;
 }
