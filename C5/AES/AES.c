@@ -21,7 +21,7 @@ int main()
     get_rand_128((rng_128_t*)key );
 
     ret = mbedtls_cipher_setkey(&cipher_ctx, key, 
-                        cipher_info->key_bitlen, MBEDTLS_ENCRYPT);
+                        mbedtls_cipher_info_get_key_bitlen(cipher_info), MBEDTLS_ENCRYPT);
     ret = mbedtls_cipher_reset(&cipher_ctx);
     
     char buffer[16] = "Hello World";
@@ -39,7 +39,7 @@ int main()
 
     char plaintext[16];  
     ret = mbedtls_cipher_setkey(&cipher_ctx, key, 
-                       cipher_info->key_bitlen, MBEDTLS_DECRYPT);
+                       mbedtls_cipher_info_get_key_bitlen(cipher_info), MBEDTLS_DECRYPT);
     ret = mbedtls_cipher_reset(&cipher_ctx);
     mbedtls_cipher_update(&cipher_ctx, output, 16, 
                                                plaintext, &olen);
