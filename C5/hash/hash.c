@@ -13,11 +13,11 @@ int main()
 
     mbedtls_sha256_context ctx;
     mbedtls_sha256_init(&ctx);
-    ret = mbedtls_sha256_starts_ret(&ctx, 0);
+    ret = mbedtls_sha256_starts(&ctx, 0);
 
-    ret = mbedtls_sha256_update_ret(&ctx, input, strlen(input));
-    ret = mbedtls_sha256_finish_ret(&ctx, hash);
-    ret = mbedtls_sha256_ret(input, strlen(input), hash, 0);
+    ret = mbedtls_sha256_update(&ctx, input, strlen(input));
+    ret = mbedtls_sha256_finish(&ctx, hash);
+    ret = mbedtls_sha256(input, strlen(input), hash, 0);
     printf("Input string: \"%s\"\n", input);
     printf("SHA256 Hash: ");
     for (int i = 0; i < 32; i++)
