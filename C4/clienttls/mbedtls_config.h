@@ -71,6 +71,9 @@
 
 // Speeds up mbedtls with NIST optimizations.
 #define MBEDTLS_ECP_NIST_OPTIM
+//Needed for sdk 2.2 and 2.3
+#define MBEDTLS_ALLOW_PRIVATE_ACCESS
+#define MBEDTLS_PLATFORM_MS_TIME_ALT
 
 // checks that everything needed is included
-#include "/home/mike/.pico-sdk/sdk/2.1.1/lib/mbedtls/include/mbedtls/check_config.h"
+#include "/home/user/.pico-sdk/sdk/2.1.1/lib/mbedtls/include/mbedtls/check_config.h"
