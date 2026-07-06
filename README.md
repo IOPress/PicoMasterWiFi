@@ -1,4 +1,7 @@
 # PicoMasterWiFi
+Note: These programs are currently being updated to sdk 2.3 and hence mbedtls 3.2
+the update has reached C5 which is a work in progress. Beyond C4 all programs work on sdk 2.1.
+You need to make sure that the correct sdk is selected before you build a program.
 
 You can browse the repo if you simply want to read the code.
 If you want to use the repo to run the code then you can either
