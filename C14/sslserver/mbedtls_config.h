@@ -85,6 +85,9 @@
 
 #define MBEDTLS_CERTS_C
 
+//Needed for sdk 2.2 and 2.3 mbedtls 3.x
+#define MBEDTLS_ALLOW_PRIVATE_ACCESS
+#define MBEDTLS_PLATFORM_MS_TIME_ALT
 
 // checks that everything needed is included
 #include "/home/mike/.pico-sdk/sdk/2.1.1/lib/mbedtls/include/mbedtls/check_config.h"
