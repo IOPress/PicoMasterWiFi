@@ -72,7 +72,11 @@ void setupCert(mbedtls_x509_crt *srvcert, mbedtls_pk_context *pkey)
         printf("%d", err);
 
     mbedtls_pk_init(pkey);
-    err = mbedtls_pk_parse_key(pkey, key, sizeof(key), NULL, 0);
+  // needed for mbedtls 2.xx i.e. sdk 2.1
+    // err = mbedtls_pk_parse_key(pkey, key, sizeof(key), NULL, 0);
+    //update for mbedtls 3.x  i.e. sk 2.2 2.3
+    err = mbedtls_pk_parse_key(pkey, key, sizeof(key), NULL, 0,mbedtls_ctr_drbg_random,0);
+    
     if (err < 0)
         printf("%d", err);
 }
